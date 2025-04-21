@@ -1,10 +1,10 @@
 // models/index.js
-import { Producto } from './Producto.js';
-import { Imagen } from './Imagen.js';
-import { Categoria } from './Categoria.js';
-import { Color } from './Color.js';
-import { ProductoColor } from './Producto_Color.js';
-import { Usuario } from './Usuario.js';
+import { Producto } from './ProductoModel.js';
+import { Imagen } from './ImagenModel.js';
+import { Categoria } from './CategoriaModel.js';
+import { Color } from './ColorModel.js';
+import { ProductoColor } from './Producto_ColorModel.js';
+import { Usuario } from './UsuarioModel.js';
 
 // Relaciones
 Categoria.hasMany(Producto, { foreignKey: 'categoria_id', sourceKey: 'id' });
@@ -24,14 +24,14 @@ Color.belongsToMany(Producto, {
   foreignKey: 'color_id',
   otherKey: 'producto_id',
 });
-// Sincronización
-await Color.sync({ alter: true })
+
+// Sincronización de tablas
+await Color.sync({ alter: true });
 await Categoria.sync({ alter: true });
 await Producto.sync({ alter: true });
 await Imagen.sync({ alter: true });
-await ProductoColor.sync({ alter: true })
-await Usuario.sync({alter:true})
+await ProductoColor.sync({ alter: true });
+await Usuario.sync({ alter: true });
 
-
-// Exportar modelos (opcional)
-export { Producto, Categoria, Imagen, Color, ProductoColor,Usuario};
+// Exporto modelos
+export { Producto, Categoria, Imagen, Color, ProductoColor, Usuario };

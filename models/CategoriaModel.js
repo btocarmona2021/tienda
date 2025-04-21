@@ -1,7 +1,5 @@
 import { DataTypes } from 'sequelize';
 import { conectarDB } from '../config/database.js';
-import { Producto } from './Producto.js';
-import { Imagen } from './Imagen.js';
 
 export const Categoria = conectarDB.define(
   'categorias',

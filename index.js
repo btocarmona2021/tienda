@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import './models/index.js'
-
+import { productoRouter } from './routes/ProductoRoutes.js';
+import { categoriaRouter } from './routes/CategoriaRoutes.js';
 
 const app = express();
 const PUERTO = 3000;
@@ -13,6 +13,9 @@ const opcionesCors = {
 app.use(cors(opcionesCors));
 
 app.use(express.json());
+
+app.use('/v1', productoRouter);
+app.use('/v1', categoriaRouter);
 
 app.listen(PUERTO, (error) => {
   if (error) {
