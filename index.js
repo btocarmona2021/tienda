@@ -5,7 +5,8 @@ import { categoriaRouter } from './routes/CategoriaRoutes.js';
 import { colorRouter } from './routes/ColorRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { MarcaRouter } from './routes/MarcaRoutes.js';
+import { marcaRouter } from './routes/MarcaRoutes.js';
+import { bannerRouter } from './routes/BannerRoutes.js';
 
 const app = express();
 const PUERTO = 3000;
@@ -22,7 +23,8 @@ app.use(express.json());
 app.use('/v1', productoRouter);
 app.use('/v1', categoriaRouter);
 app.use('/v1', colorRouter);
-app.use('/v1',MarcaRouter)
+app.use('/v1',marcaRouter)
+app.use('/v1',bannerRouter)
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

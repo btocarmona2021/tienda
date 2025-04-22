@@ -1,5 +1,4 @@
-import { Producto } from '../models/index.js';
-
+import { Categoria, Marca, Producto } from '../models/index.js';
 
 export const crearProducto = async (req, res) => {
   try {
@@ -14,6 +13,8 @@ export const crearProducto = async (req, res) => {
       destacado,
       descuento,
       stock_minimo,
+      categoria_id,
+      marcaId,
     } = req.body;
 
     // if (
@@ -42,6 +43,8 @@ export const crearProducto = async (req, res) => {
       destacado,
       descuento,
       stock_minimo,
+      categoria_id,
+      marcaId,
     });
 
     res.status(201).json({ message: 'Producto creado correctamente' });
@@ -53,7 +56,18 @@ export const crearProducto = async (req, res) => {
 
 export const listarProductos = async (req, res) => {
   try {
-    const productos = await Producto.findAll();
+    const productos = await Producto.findAll({
+      include: [
+        {
+          model: Marca,
+          attributes: ['nombre'],
+        },
+        {
+          model: Categoria,
+          attributes:['nombre']
+        },
+      ],
+    });
     if (productos.length === 0) {
       res.status(400).json({ message: 'No hay productos' });
       return;
@@ -118,10 +132,9 @@ export const modificarProducto = async (req, res) => {
     }
     res
       .status(201)
-      .json({ message: 'Producto actualizado se modificaron ' +  actualizado + ' registros' });
+      .json({ message: 'Producto actualizado se modificaron ' + actualizado + ' registros' });
   } catch (error) {
     console.log(error.message);
     res.status(400).json({ message: 'Ha ocurrido un error al intentar actualizar el producto' });
   }
 };
-

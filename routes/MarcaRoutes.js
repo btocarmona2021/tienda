@@ -1,6 +1,9 @@
 import { Router } from "express";
-import { crearMarca } from "../controllers/MarcaController.js";
+import { crearMarca, eliminarMarca, listarMarcas, modificarMarca } from "../controllers/MarcaController.js";
 
-export const MarcaRouter = Router();
+export const marcaRouter = Router();
 
-MarcaRouter.post('/marca',crearMarca)
+marcaRouter.post('/marca',crearMarca)
+marcaRouter.put('/marca/:id',modificarMarca)
+marcaRouter.delete('/marca/:id',eliminarMarca)
+marcaRouter.get('/marcas',listarMarcas)
