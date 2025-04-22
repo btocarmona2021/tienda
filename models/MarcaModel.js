@@ -1,22 +1,27 @@
 import { DataTypes } from 'sequelize';
 import { conectarDB } from '../config/database.js';
 
-export const Color = conectarDB.define(
-  'colores',
+export const Marca = conectarDB.define(
+  'marcas',
   {
     id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
     },
-    valor_hexa: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: 'Marca',
+    },
+    logomarca: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
-    tableName: 'colores',
+    tableName: 'marcas',
     timestamps: false,
   },
 );

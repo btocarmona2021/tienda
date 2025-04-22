@@ -17,5 +17,4 @@ const conectar = async () => {
     console.log('Ha ocurrido un error al conectar con la base de datos:', error);
   }
 };
-
 conectar();

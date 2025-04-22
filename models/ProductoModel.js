@@ -36,6 +36,7 @@ export const Producto = conectarDB.define(
     peso: {
       type: DataTypes.FLOAT,
       allowNull: true,
+      defaultValue:0,
     },
     estado: {
       type: DataTypes.BOOLEAN,

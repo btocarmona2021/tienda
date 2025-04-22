@@ -58,7 +58,7 @@ export const listarProductos = async (req, res) => {
       res.status(400).json({ message: 'No hay productos' });
       return;
     }
-    res.status(201).json({ productos: productos });
+    res.status(201).json(productos);
   } catch (error) {
     console.log(error.message);
     res.status(404).json({ message: error.message });
