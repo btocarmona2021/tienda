@@ -7,4 +7,4 @@ export const productoRouter = Router();
 productoRouter.post('/producto',fotosProductos.single('imagen'), crearProducto);
 productoRouter.get('/productos', listarProductos);
 productoRouter.delete('/producto/:id', eliminarProducto);
-productoRouter.patch('/producto/:id', modificarProducto);
+productoRouter.put('/producto/:id', modificarProducto);

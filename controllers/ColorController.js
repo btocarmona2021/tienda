@@ -29,11 +29,9 @@ export const listarColores = async (req, res) => {
     res.status(400).json({ message: 'Ha ocurrido un error al obtener los colores' });
   }
 };
-
 export const crearColor = async (req, res) => {
   try {
     const { valor_hexa } = req.body;
-    console.log(valor_hexa);
 
     const color = await Color.create({
       valor_hexa,
@@ -49,3 +47,23 @@ export const crearColor = async (req, res) => {
   }
 };
 
+export const modificarColor = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { valor_hexa } = req.body;
+    const color = await Color.update(
+      { valor_hexa },
+      {
+        where: { id: id },
+      },
+    );
+    if (!color) {
+      res.status(401).json({ message: 'Error al modificar el color' });
+      return;
+    }
+    res.status(201).json({ message: 'Se ha modificado el color correctamente' });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: 'Ha ocurrido un error al modificar el color' });
+  }
+};
