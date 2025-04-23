@@ -2,7 +2,8 @@ import { Marca } from '../models/MarcaModel.js';
 
 export const crearMarca = async (req, res) => {
   try {
-    const { nombre, logomarca } = req.body;
+    const { nombre } = req.body;
+    const logomarca = process.env.BASE_URL + '/uploads/missubidas/' + req.file.filename;
     const marca = await Marca.create({ nombre, logomarca });
     if (!marca) {
       res.status(401).json({ message: 'No se pudo crear la marca' });

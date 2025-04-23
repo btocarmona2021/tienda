@@ -1,8 +1,13 @@
 import { Banner } from '../models/BannerModel.js';
+import dotenv from 'dotenv';
+dotenv.config(); 
+
 
 export const crearBanner = async (req, res) => {
   try {
-    const { titulo, descripcion, imagen_url, enlace, activo } = req.body;
+    const { titulo, descripcion, enlace, activo } = req.body;
+    const imagen_url = process.env.BASE_URL + '/uploads/missubidas/' + req.file.filename; 
+
     const banner = await Banner.create({ titulo, descripcion, imagen_url, enlace, activo });
     if (!banner) {
       res.status(401).json({ message: 'Error al crear el banner' });
