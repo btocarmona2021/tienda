@@ -13,6 +13,7 @@ export const Color = conectarDB.define(
     valor_hexa: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   {

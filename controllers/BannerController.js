@@ -16,7 +16,7 @@ export const crearBanner = async (req, res) => {
     res.status(201).json(banner);
   } catch (error) {
     console.log(error.message);
-    res.stattus(400).json({ message: 'ha ocurrido un error al guardar el banner' });
+    res.status(400).json({ message: 'ha ocurrido un error al guardar el banner' });
   }
 };
 export const modificarBanner = async (req, res) => {

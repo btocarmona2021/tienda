@@ -1,0 +1,71 @@
+import { Imagen } from '../models/ImagenModel.js';
+
+export const crearImagen = (req, res) => {
+  try {
+    const idProducto = req.params.id;
+
+    if (!req.files || req.files.length === 0) {
+      res.status(400).json({ message: 'No se subió ninguna imagen.' });
+      return;
+    }
+    req.files.forEach(async (imagen) => {
+      const rutaImagen = process.env.BASE_URL + '/uploads/missubidas/' + imagen.filename;
+      await Imagen.create({
+        ruta_imagen: rutaImagen,
+        producto_id: idProducto,
+      });
+    });
+  } catch (error) {
+    console.log(error.name);
+  }
+};
+
+export const modificarImagen = async (req,res) => {
+  try {
+    const { id } = req.params;
+    if (!req.files || req.files.length === 0) {
+      res.status(400).json({ message: 'No se subió ninguna imagen.' });
+      return;
+    }
+    const ruta_imagen = process.env.BASE_URL + '/uploads/missubidas/' + req.files[0].filename;
+    const imagen = await Imagen.update({ ruta_imagen }, { where: { id: id } });
+    if (!imagen) {
+      res.status(404).json({ message: 'No se encontro la imagen a modificar' });
+      return;
+    } else {
+      res.status(201).json({ message: 'Imagen modificada correctamente' });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: 'Ha ocurrido un error al intentar modificar la imagen' });
+  }
+};
+export const eliminarImagen = async (req,res) => {
+  try {
+    const { id } = req.params;
+    const imagenEliminada = await Imagen.destroy({ where: { id: id } });
+    if (!imagenEliminada) {
+      res.status(404).json({ message: 'No se encontro la imagen a eliminar' });
+      return;
+    } else {
+      res.status(201).json({ message: 'Imagen eliminada correctamente' });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: 'Ha ocurrido un error al intentar eliminar la imagen' });
+  }
+};
+
+export const listarImagenes = async (req, res) => {
+  try {
+    const imagenes = await Imagen.findAll();
+    if (imagenes.length === 0) {
+      res.status(400).json({ message: 'No hay imagenes' });
+      return;
+    }
+    res.status(201).json(imagenes);
+  } catch (error) {
+    console.log(error.name);
+    res.status(404).json({ message: error.message });
+  }
+};

@@ -9,8 +9,19 @@ import { Marca } from './MarcaModel.js';
 import { Banner } from './BannerModel.js';
 
 // Relaciones
-Categoria.hasMany(Producto, { foreignKey: 'categoria_id', sourceKey: 'id' });
-Producto.belongsTo(Categoria, { foreignKey: 'categoria_id', targetKey: 'id' });
+Categoria.hasMany(Producto, {
+  foreignKey: 'categoria_id',
+  sourceKey: 'id',
+  onDelete: 'cascade',
+  onUpdate:'cascade',
+});
+
+Producto.belongsTo(Categoria, {
+  foreignKey: 'categoria_id',
+  targetKey: 'id',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
+});
 
 Producto.hasMany(Imagen, { foreignKey: 'producto_id', sourceKey: 'id' });
 Imagen.belongsTo(Producto, { foreignKey: 'producto_id', targetKey: 'id' });
@@ -27,8 +38,18 @@ Color.belongsToMany(Producto, {
   otherKey: 'producto_id',
 });
 
-Marca.hasMany(Producto, { foreignKey: 'marcaId', sourceKey: 'id' });
-Producto.belongsTo(Marca, { foreignKey: 'marcaId', targetKey: 'id' });
+Marca.hasMany(Producto, {
+  foreignKey: 'marcaId',
+  sourceKey: 'id',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
+});
+Producto.belongsTo(Marca, {
+  foreignKey: 'marcaId',
+  targetKey: 'id',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
+});
 
 Imagen.hasOne(Usuario, { foreignKey: 'avatarId', sourceKey: 'id' });
 Usuario.belongsTo(Imagen, { foreignKey: 'avatarId', targetKey: 'id' });
@@ -41,6 +62,6 @@ Usuario.belongsTo(Imagen, { foreignKey: 'avatarId', targetKey: 'id' });
 // await Imagen.sync({ alter: true });
 // await ProductoColor.sync({ alter: true });
 // await Usuario.sync({ alter: true });
-await Banner.sync({alter:true})
+// await Banner.sync({alter:true})
 // Exporto modelos
 export { Producto, Categoria, Imagen, Color, ProductoColor, Usuario, Marca ,Banner};

@@ -31,19 +31,27 @@ export const listarColores = async (req, res) => {
 };
 export const crearColor = async (req, res) => {
   try {
-    const { valor_hexa } = req.body;
+    const {valor_hexa} = req.body;
 
-    const color = await Color.create({
-      valor_hexa,
-    });
-    if (!color) {
-      res.status(401).json({ message: 'Error al crear el nuevo color' });
+    if (!valor_hexa) {
+      res.status(400).json({ message: 'El valor del color no puede estar vacío.' });
       return;
     }
+    await Color.create({
+      valor_hexa,
+    });
+
     res.status(201).json({ message: 'Se ha creado el color correctamente' });
   } catch (error) {
-    console.log(error.message);
-    res.status(400).json({ message: 'Ha ocurrido un error al crear el nuevo color' });
+    
+     if (error.name === 'SequelizeUniqueConstraintError') {
+       res.status(400).json({ message: 'El color ya existe.' });
+     } else {
+       // Si es otro tipo de error, devolver el mensaje del error
+       res
+         .status(400)
+         .json({ message: 'Ha ocurrido un error al crear el color: ' + error.message });
+     }
   }
 };
 
